@@ -1,0 +1,22 @@
+{
+	admin :2019 
+	debug // this allows debug logging to appear in console
+}
+
+127.0.0.1:8080 {
+	log {
+		format console
+		output stdout
+	}
+	log splunk {
+		format json
+		output splunk_hec_log {
+			url https://http-inputs-FOOBAR.splunkcloud.com
+			token {$SPLUNK_HEC_TOKEN}
+			flush_interval 10s
+		}
+	}
+	respond "I am a demo {http.request.scheme} server running on {system.hostname}. METHOD={http.request.method} HOST={http.request.host} PATH={http.request.uri.path}"
+}
+
+
